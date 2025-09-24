@@ -28,15 +28,17 @@ It includes responsive layouts, interactive product cards, filters, shopping car
 ---
 
 ## 🛠️ Tech Stack
-
-- [Next.js 15](https://nextjs.org/) (App Router)  
-- [React 19](https://react.dev/)  
-- [TypeScript](https://www.typescriptlang.org/)  
-- [Tailwind CSS](https://tailwindcss.com/)  
-- [Zustand](https://github.com/pmndrs/zustand) (state management)  
-- [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) (form validation)  
-- [React Table](https://tanstack.com/table) (admin tables)  
-
+- **[Next.js](https://nextjs.org/)** – React Framework for Production Apps & App Router. 
+- **[React](https://react.dev/)** – UI library.
+- **[TypeScript](https://www.typescriptlang.org/)** - Programming Language
+- **[Tailwind CSS](https://tailwindcss.com/)** – Utility-First CSS Framework.
+- **[ShadCN UI](https://ui.shadcn.com/)** – Radix UI + Tailwind Component Library.
+- **[Recharts](https://recharts.org/)** – Data Visualization Library.
+- **[TanStack Table](https://tanstack.com/table)** – Advanced Data Tables.
+- **[react-hook-form](https://react-hook-form.com/)** – Form Handling.
+- **[Zod](https://zod.dev/)** – Schema Validation.
+- **[Zustand](https://github.com/pmndrs/zustand)** - State Management.
+  
 ---
 
 ## Project Overview
