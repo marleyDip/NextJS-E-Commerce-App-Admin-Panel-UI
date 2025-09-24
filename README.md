@@ -30,7 +30,7 @@ It includes responsive layouts, interactive product cards, filters, shopping car
 ## 🛠️ Tech Stack
 
 - [Next.js 15](https://nextjs.org/) (App Router)  
-- [React 18](https://react.dev/)  
+- [React 19](https://react.dev/)  
 - [TypeScript](https://www.typescriptlang.org/)  
 - [Tailwind CSS](https://tailwindcss.com/)  
 - [Zustand](https://github.com/pmndrs/zustand) (state management)  
