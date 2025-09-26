@@ -1,6 +1,7 @@
 import { ProductsType } from "@/types";
 import Categories from "./Categories";
 import ProductCard from "./ProductCard";
+import Link from "next/link";
 
 // Temporary
 const products: ProductsType = [
@@ -67,7 +68,7 @@ const products: ProductsType = [
     colors: ["red", "orange", "black"],
     images: {
       red: "/products/5r.png",
-      orange: "/products/50.png",
+      orange: "/products/5o.png",
       black: "/products/5bl.png",
     },
   },
@@ -91,7 +92,7 @@ const products: ProductsType = [
     price: 1299,
     sizes: ["40", "42", "43"],
     colors: ["gray", "pink"],
-    images: { gray: "/products/7g.png", pink: "products/7p.png" },
+    images: { gray: "/products/7g.png", pink: "/products/7p.png" },
   },
   {
     id: 8,
@@ -106,7 +107,7 @@ const products: ProductsType = [
   },
 ];
 
-const ProductList = () => {
+const ProductList = ({ category }: { category: string }) => {
   return (
     <div className="w-full">
       <Categories />
@@ -116,6 +117,13 @@ const ProductList = () => {
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+
+      <Link
+        href={category ? `/products/?category=${category}` : "/products"}
+        className="flex justify-end mt-4 text-sm text-gray-500 underline"
+      >
+        View All Products
+      </Link>
     </div>
   );
 };

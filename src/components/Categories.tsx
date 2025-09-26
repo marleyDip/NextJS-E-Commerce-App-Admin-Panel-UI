@@ -10,7 +10,7 @@ import {
   Venus,
 } from "lucide-react";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 //import { useRouter } from "next/router";
 
 const categories = [
@@ -60,6 +60,7 @@ const categories = [
 const Categories = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const pathname = usePathname();
   //console.log(searchParams);
 
   // Get currently selected category from URL
@@ -67,7 +68,12 @@ const Categories = () => {
   //console.log(selectedCategory);
 
   const handleChange = (value: string | null) => {
-    router.push(`/?category=${value}`);
+    const params = new URLSearchParams(searchParams);
+    params.set("category", value || "all");
+
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+
+    //router.push(`${pathname}?category=${value}`);
   };
 
   return (
