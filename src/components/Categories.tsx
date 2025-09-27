@@ -80,7 +80,7 @@ const Categories = () => {
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 p-2 mb-4 mt-1 gap-2 text-sm bg-gray-100 rounded-lg">
       {categories.map((category) => (
         <div
-          key={category.name}
+          key={category.slug}
           onClick={() => handleChange(category.slug)}
           className={`flex items-center justify-center px-2 py-1 gap-2 rounded-md cursor-pointer ${
             category.slug === selectedCategory ? "bg-white" : "text-gray-500"
