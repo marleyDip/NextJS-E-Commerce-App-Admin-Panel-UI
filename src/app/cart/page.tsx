@@ -181,7 +181,7 @@ const CartPage = () => {
               </div>
             ))
           ) : activeStep === 2 ? (
-            <ShippingForm />
+            <ShippingForm setShippingForm={setShippingForm} />
           ) : activeStep === 3 && shippingForm ? (
             <PaymentForm />
           ) : (
@@ -193,7 +193,7 @@ const CartPage = () => {
         {/* Steps */}
 
         {/* Cart Details */}
-        <div className="w-full lg:w-5/12 p-8 gap-8 flex flex-col border-1 border-gray-100 rounded-lg shadow-lg">
+        <div className="w-full h-max lg:w-5/12 p-8 gap-8 flex flex-col border-1 border-gray-100 rounded-lg shadow-lg">
           <h1 className="font-semibold">Cart Details</h1>
 
           {/* Details */}
@@ -290,7 +290,7 @@ const CartPage = () => {
           {activeStep === 1 && (
             <div
               onClick={() => router.push("/cart?step=2", { scroll: false })}
-              className="h-max rainbow relative z-0 overflow-hidden p-0.5 flex items-center justify-center rounded-xl hover:scale-[1.01] transition duration-300 active:scale-95"
+              className="rainbow relative z-0 overflow-hidden p-0.5 flex items-center justify-center rounded-xl hover:scale-[1.01] transition duration-300 active:scale-95"
             >
               <button className="group w-full p-2.5 text-sm sm:text-base font-medium text-white bg-gray-800 hover:bg-gray-900 rounded-xl cursor-pointer">
                 <p className="relative h-6 overflow-hidden">
