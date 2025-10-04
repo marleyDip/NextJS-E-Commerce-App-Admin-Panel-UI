@@ -19,5 +19,19 @@
   background-size: 50% 30%;
   filter: blur(6px);
   background-image: linear-gradient(#ff0a7f, #780eff);
-  animation: rotate 5s linear infinite;
+  animation: rotate 6s linear infinite;
+}
+
+@keyframes spin-gradient {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.button-wrapper::before {
+  animation: spin-gradient 8s linear infinite;
 }
