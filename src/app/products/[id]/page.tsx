@@ -1,6 +1,7 @@
 import ProductionInteraction from "@/components/ProductionInteraction";
 import { ProductType } from "@/types";
 import Image from "next/image";
+import { metadata } from "../../layout";
 
 // Temporary
 const product: ProductType = {
@@ -19,6 +20,20 @@ const product: ProductType = {
   },
 };
 
+// SEO
+export const generateMetaData = async ({
+  params,
+}: {
+  params: { id: string };
+}) => {
+  // get / fetch product by id from db
+  //const product = await getProductById(params.id);
+  return {
+    title: product.name,
+    description: product.description,
+    keywords: [product.name, "Adidas", "T-Shirt", "Clothing", "Apparel"],
+  };
+};
 
 // type ProductPageProps = {
 //   params: { id: string };
