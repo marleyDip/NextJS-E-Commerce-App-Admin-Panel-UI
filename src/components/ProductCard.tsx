@@ -14,8 +14,9 @@ const ProductCard = ({ product }: { product: ProductType }) => {
     size: product.sizes[0],
   });
 
-  const { addToCart } = useCartStore();
+  const { addToCart } = useCartStore(); // destructure addToCart from the store
 
+  // Function to handle size and color selection
   const handleProductType = ({
     type,
     value,
@@ -29,6 +30,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
     }));
   };
 
+  // Function to handle adding product to cart
   const handleAddToCart = () => {
     addToCart({
       ...product,

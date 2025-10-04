@@ -2,65 +2,67 @@
 
 import PaymentForm from "@/components/PaymentForm";
 import ShippingForm from "@/components/ShippingForm";
-import { CartItemsType } from "@/types";
+import useCartStore from "@/stores/cartStore";
+import { CartItemsType, ShippingFormInputs } from "@/types";
 import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 // Temporary
-const cartItems: CartItemsType = [
-  {
-    id: 1,
-    name: "Adidas CoreFit T-Shirt",
-    shortDescription: "Lightweight, breathable tee for everyday comfort.",
-    description:
-      "The Adidas CoreFit T-Shirt is crafted from premium cotton-blend fabric with moisture-wicking technology to keep you dry and comfortable. Perfect for workouts or casual outings, it offers a classic fit with durable stitching for long-lasting wear.",
-    price: 899,
-    sizes: ["s", "m", "l", "xl", "xxl"],
-    colors: ["gray", "purple", "green"],
-    images: {
-      gray: "/products/1g.png",
-      purple: "/products/1p.png",
-      green: "/products/1gr.png",
-    },
-    quantity: 1,
-    selectedSize: "m",
-    selectedColor: "gray",
-  },
-  {
-    id: 2,
-    name: "Puma Ultra Warm Zip",
-    shortDescription: "Cozy zip-up hoodie for cold-weather comfort.",
-    description:
-      "Stay warm and stylish with the Puma Ultra Warm Zip. Made with soft fleece lining and a durable outer layer, this hoodie provides excellent insulation without compromising breathability. Its modern design and adjustable hood make it perfect for chilly days.",
-    price: 1500,
-    sizes: ["s", "m", "l", "xl"],
-    colors: ["gray", "green"],
-    images: { gray: "/products/2g.png", green: "/products/2gr.png" },
-    quantity: 1,
-    selectedSize: "xl",
-    selectedColor: "green",
-  },
-  {
-    id: 3,
-    name: "Nike Air Essentials Pullover",
-    shortDescription: "Classic pullover with premium comfort.",
-    description:
-      "The Nike Air Essentials Pullover combines soft fleece fabric with a relaxed fit for everyday wear. Featuring ribbed cuffs and hem for a snug feel, this hoodie is designed for both casual outings and active lifestyles.",
-    price: 5599,
-    sizes: ["s", "m", "l"],
-    colors: ["green", "blue", "black"],
-    images: {
-      green: "/products/3gr.png",
-      blue: "/products/3b.png",
-      black: "/products/3bl.png",
-    },
-    quantity: 1,
-    selectedSize: "l",
-    selectedColor: "black",
-  },
-];
+// const cartItems: CartItemsType = [
+//   {
+//     id: 1,
+//     name: "Adidas CoreFit T-Shirt",
+//     shortDescription: "Lightweight, breathable tee for everyday comfort.",
+//     description:
+//       "The Adidas CoreFit T-Shirt is crafted from premium cotton-blend fabric with moisture-wicking technology to keep you dry and comfortable. Perfect for workouts or casual outings, it offers a classic fit with durable stitching for long-lasting wear.",
+//     price: 899,
+//     sizes: ["s", "m", "l", "xl", "xxl"],
+//     colors: ["gray", "purple", "green"],
+//     images: {
+//       gray: "/products/1g.png",
+//       purple: "/products/1p.png",
+//       green: "/products/1gr.png",
+//     },
+//     quantity: 1,
+//     selectedSize: "m",
+//     selectedColor: "gray",
+//   },
+//   {
+//     id: 2,
+//     name: "Puma Ultra Warm Zip",
+//     shortDescription: "Cozy zip-up hoodie for cold-weather comfort.",
+//     description:
+//       "Stay warm and stylish with the Puma Ultra Warm Zip. Made with soft fleece lining and a durable outer layer, this hoodie provides excellent insulation without compromising breathability. Its modern design and adjustable hood make it perfect for chilly days.",
+//     price: 1500,
+//     sizes: ["s", "m", "l", "xl"],
+//     colors: ["gray", "green"],
+//     images: { gray: "/products/2g.png", green: "/products/2gr.png" },
+//     quantity: 1,
+//     selectedSize: "xl",
+//     selectedColor: "green",
+//   },
+//   {
+//     id: 3,
+//     name: "Nike Air Essentials Pullover",
+//     shortDescription: "Classic pullover with premium comfort.",
+//     description:
+//       "The Nike Air Essentials Pullover combines soft fleece fabric with a relaxed fit for everyday wear. Featuring ribbed cuffs and hem for a snug feel, this hoodie is designed for both casual outings and active lifestyles.",
+//     price: 5599,
+//     sizes: ["s", "m", "l"],
+//     colors: ["green", "blue", "black"],
+//     images: {
+//       green: "/products/3gr.png",
+//       blue: "/products/3b.png",
+//       black: "/products/3bl.png",
+//     },
+//     quantity: 1,
+//     selectedSize: "l",
+//     selectedColor: "black",
+//   },
+// ];
 
 const steps = [
   {
@@ -80,9 +82,56 @@ const steps = [
 const CartPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [shippingForm, setShippingForm] = useState(null);
+  const [shippingForm, setShippingForm] = useState<ShippingFormInputs>();
 
   const activeStep = parseInt(searchParams.get("step") || "1");
+
+  const { cart, removeFromCart } = useCartStore(); // Destructure cart and removeFromCart from the store
+
+  // Handle remove item from cart
+  // [number] on an array type = “the type of a single element of the array”
+  const handleRemove = (item: CartItemsType[number]) => {
+    const existingItem = cart.find(
+      (p) =>
+        p.id === item.id &&
+        p.selectedColor === item.selectedColor &&
+        p.selectedSize === item.selectedSize
+    );
+    if (!existingItem) return;
+
+    const isDecrement = existingItem.quantity > 1;
+
+    removeFromCart(item); // Call the removeFromCart action from the store
+
+    toast(
+      isDecrement
+        ? `Decreased quantity of ${item.name} in cart.`
+        : `Removed ${item.name} from cart.`,
+      { type: isDecrement ? "info" : "error" }
+    );
+
+    // Custom styled toast notification
+    // toast(
+    //   isDecrement
+    //     ? `Decreased quantity of ${item.name} in cart.`
+    //     : `Removed ${item.name} from cart.`,
+    //   {
+    //     style: {
+    //       backgroundColor: isDecrement ? "#2563eb" : "#dc2626",
+    //       color: "#fff",
+    //     },
+    //   }
+    // );
+  };
+
+  // if (cart.length === 0) {
+  //   return (
+  //     <div className="flex flex-col items-center justify-center gap-4 mt-12">
+  //       <h1 className="text-2xl font-medium">Your Shopping Cart</h1>
+  //       <p className="text-sm text-gray-500">Your cart is currently empty.</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 mt-12">
@@ -124,9 +173,12 @@ const CartPage = () => {
         {/* Steps */}
         <div className="w-full lg:w-7/12 p-8 gap-8 flex flex-col border-1 border-gray-100 rounded-lg shadow-lg">
           {activeStep === 1 ? (
-            cartItems.map((item) => (
+            cart.map((item) => (
               // Single Cart Item
-              <div className="flex items-center justify-between" key={item.id}>
+              <div
+                className="flex items-center justify-between"
+                key={item.id + item.selectedColor + item.selectedSize}
+              >
                 {/* Image & Details */}
                 <div className="flex gap-8">
                   {/* Image */}
@@ -174,7 +226,10 @@ const CartPage = () => {
                 {/* Image & Details */}
 
                 {/* Delete Btn */}
-                <div className="w-8 h-8 rounded-full hover:shadow-md bg-red-100 hover:bg-red-200 text-red-400 flex items-center justify-center transition-all duration-300 cursor-pointer">
+                <div
+                  onClick={() => handleRemove(item)}
+                  className="w-8 h-8 rounded-full hover:shadow-md bg-red-100 hover:bg-red-200 text-red-400 flex items-center justify-center transition-all duration-300 cursor-pointer"
+                >
                   <Trash2 className="w-3 h-3" />
                 </div>
                 {/* Delete Btn */}
@@ -210,7 +265,7 @@ const CartPage = () => {
                   height={4}
                   className="w-3 h-3 md:w-4 md:h-4"
                 />
-                {cartItems
+                {cart
                   .reduce((acc, item) => acc + item.price * item.quantity, 0)
                   .toFixed(2)}
               </p>
@@ -229,7 +284,7 @@ const CartPage = () => {
                   className="w-3 h-3 md:w-4 md:h-4"
                 />
                 {(
-                  cartItems.reduce(
+                  cart.reduce(
                     (acc, item) => acc + item.price * item.quantity,
                     0
                   ) * 0.1
@@ -268,11 +323,11 @@ const CartPage = () => {
                   className="w-3 h-3 md:w-4 md:h-4"
                 />
                 {(
-                  cartItems.reduce(
+                  cart.reduce(
                     (acc, item) => acc + item.price * item.quantity,
                     0
                   ) - // subtotal
-                  cartItems.reduce(
+                  cart.reduce(
                     (acc, item) => acc + item.price * item.quantity,
                     0
                   ) *
