@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ProductType } from "../types";
+import { ProductType, ProductsType } from "../types";
 import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
@@ -32,6 +32,17 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 
   // Function to handle adding product to cart
   const handleAddToCart = () => {
+    const cart = useCartStore.getState().cart; // Get current cart state
+
+    // check if at least one product with same id, size, and color exists in cart
+    const alreadyInCart = cart.some(
+      (p) =>
+        p.id === product.id &&
+        p.selectedColor === productTypes.color &&
+        p.selectedSize === productTypes.size
+    );
+
+    // always add/update in cart
     addToCart({
       ...product,
       quantity: 1,
@@ -39,7 +50,13 @@ const ProductCard = ({ product }: { product: ProductType }) => {
       selectedColor: productTypes.color,
     });
 
-    toast.success(`${product.name} added to cart`);
+    if (alreadyInCart) {
+      toast.info(
+        `Increased quantity of ${product.name} in your cart once more`
+      );
+    } else {
+      toast.success(`${product.name} added to cart`);
+    }
   };
 
   return (
