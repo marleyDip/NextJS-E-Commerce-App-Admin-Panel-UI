@@ -62,7 +62,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
   return (
     <div className="rounded-lg shadow-lg hover:shadow-xl overflow-hidden">
       {/* Image */}
-      <Link href="/products/${product.id}">
+      <Link href={`/products/${product.id}`}>
         <div className="relative aspect-[2/3]">
           <Image
             src={product.images[productTypes.color]}
@@ -131,11 +131,9 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 
         {/* Price & Add to cart btn */}
         <div className="flex items-center justify-between">
-          <p className="text-sm font-medium">
-            {new Intl.NumberFormat("en-BD", {
-              style: "currency",
-              currency: "BDT",
-            }).format(product.price)}
+          <p className="text-sm font-medium flex items-center gap-0.5">
+            <Image src="/taka.png" alt="BD Taka Icon" width={16} height={16} />
+            {product.price.toFixed(2)}
           </p>
 
           <button

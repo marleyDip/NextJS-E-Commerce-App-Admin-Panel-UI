@@ -211,13 +211,7 @@ const CartPage = () => {
                     </div>
 
                     <p className="font-medium flex items-center gap-0.5">
-                      <Image
-                        src="/taka.png"
-                        alt=""
-                        width={4}
-                        height={4}
-                        className="w-3 h-3 md:w-4 md:h-4"
-                      />
+                      <Image src="/taka.png" alt="" width={16} height={16} />
                       {item.price.toFixed(2)}
                     </p>
                   </div>
@@ -258,13 +252,7 @@ const CartPage = () => {
               <p className="text-gray-500">Subtotal</p>
 
               <p className="font-medium flex items-center">
-                <Image
-                  src="/taka.png"
-                  alt=""
-                  width={4}
-                  height={4}
-                  className="w-3 h-3 md:w-4 md:h-4"
-                />
+                <Image src="/taka.png" alt="" width={16} height={16} />
                 {cart
                   .reduce((acc, item) => acc + item.price * item.quantity, 0)
                   .toFixed(2)}
@@ -276,13 +264,7 @@ const CartPage = () => {
             <div className="flex justify-between text-sm">
               <p className="text-gray-500">Discount (10%)</p>
               <p className="font-medium flex items-center">
-                <Image
-                  src="/taka.png"
-                  alt=""
-                  width={4}
-                  height={4}
-                  className="w-3 h-3 md:w-4 md:h-4"
-                />
+                <Image src="/taka.png" alt="" width={16} height={16} />
                 {(
                   cart.reduce(
                     (acc, item) => acc + item.price * item.quantity,
@@ -297,13 +279,7 @@ const CartPage = () => {
             <div className="flex justify-between text-sm">
               <p className="text-gray-500">Shipping Fee</p>
               <p className="font-medium flex items-center">
-                <Image
-                  src="/taka.png"
-                  alt=""
-                  width={4}
-                  height={4}
-                  className="w-3 h-3 md:w-4 md:h-4"
-                />
+                <Image src="/taka.png" alt="" width={16} height={16} />
                 10
               </p>
             </div>
@@ -315,13 +291,7 @@ const CartPage = () => {
             <div className="flex justify-between">
               <p className="text-gray-800 font-semibold">Total</p>
               <p className="font-medium flex items-center">
-                <Image
-                  src="/taka.png"
-                  alt=""
-                  width={4}
-                  height={4}
-                  className="w-3 h-3 md:w-4 md:h-4"
-                />
+                <Image src="/taka.png" alt="" width={16} height={16} />
                 {(
                   cart.reduce(
                     (acc, item) => acc + item.price * item.quantity,
