@@ -21,19 +21,19 @@ const product: ProductType = {
 };
 
 // SEO
-export const generateMetaData = async ({
-  params,
-}: {
-  params: { id: string };
-}) => {
-  // get / fetch product by id from db
-  //const product = await getProductById(params.id);
-  return {
-    title: product.name,
-    description: product.description,
-    keywords: [product.name, "Adidas", "T-Shirt", "Clothing", "Apparel"],
-  };
-};
+// export const generateMetaData = async ({
+//   params,
+// }: {
+//   params: { id: string };
+// }) => {
+//   // get / fetch product by id from db
+//   //const product = await getProductById(params.id);
+//   return {
+//     title: product.name,
+//     description: product.description,
+//     keywords: [product.name, "Adidas", "T-Shirt", "Clothing", "Apparel"],
+//   };
+// };
 
 // type ProductPageProps = {
 //   params: { id: string };
@@ -41,10 +41,10 @@ export const generateMetaData = async ({
 // };
 
 const productPage = async ({
-  params,
+  //params,
   searchParams,
 }: {
-  params: Promise<{ id: string }>;
+  //params: Promise<{ id: string }>;
   searchParams: Promise<{ color: string; size: string }>;
 }) => {
   const { size, color } = await searchParams;

@@ -1,7 +1,7 @@
 import { PaymentFormInputs, paymentFormSchema } from "@/types";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -16,7 +16,8 @@ const PaymentForm = () => {
 
   const router = useRouter();
 
-  const handlePaymentForm: SubmitHandler<PaymentFormInputs> = (data) => {
+  //const handlePaymentForm: SubmitHandler<PaymentFormInputs> = (data) => {
+  const handlePaymentForm: SubmitHandler<PaymentFormInputs> = () => {
     router.push("/cart?step=3", { scroll: false });
   };
 
