@@ -7,7 +7,7 @@ import { CartItemsType, ShippingFormInputs } from "@/types";
 import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { toast } from "react-toastify";
 
 // Temporary
@@ -79,7 +79,8 @@ const steps = [
   },
 ];
 
-const CartPage = () => {
+// This inner component actually uses useSearchParams()
+const CartPageContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [shippingForm, setShippingForm] = useState<ShippingFormInputs>();
@@ -343,4 +344,17 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+// This is the actual exported component wrapped in Suspense
+export default function CartPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center h-screen">
+          <div className="w-8 h-8 border-4 border-gray-300 border-t-gray-800 rounded-full animate-spin" />
+        </div>
+      }
+    >
+      <CartPageContent />
+    </Suspense>
+  );
+}

@@ -1,7 +1,7 @@
 import ProductionInteraction from "@/components/ProductionInteraction";
 import { ProductType } from "@/types";
 import Image from "next/image";
-import { metadata } from "../../layout";
+//import { metadata } from "../../layout";
 
 // Temporary
 const product: ProductType = {
